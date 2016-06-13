@@ -1,28 +1,33 @@
-//Unit size nut
-fn base_nut() -> ScadObject
+#[macro_use]
+extern crate scad_generator;
+use scad_generator::*;
+
+pub fn generic_motor_holes(small_diameter: f32, big_diameter: f32, screw_diameter: f32) -> ScadObject 
 {
-    let cube_len = 1.0/2.0;
-    let cube_width = 30.0_f32.to_radians().sin() / 30.0_f32.to_radians().cos();
+    let center_hole_diameter = 9.0;
 
-    let mut result = scad!(Union);
+    let height = 30.0;
+    let mut result = scad!(Translate(vec3(0.0,0.0,-height/2.0)));
 
-    for i in 0..6
+    //Add the center hole
+    result.add_child(scad!(Cylinder(height, Diameter(center_hole_diameter))));
+
+    //Add the screwholes
+    for i in &[-1.0,1.0]
     {
         result.add_child(
-            scad!(Rotate(60.0 * i as f32 + 30.0, vec3(0.0, 0.0, 1.0));
+            scad!(Translate(vec3(i * small_diameter / 2.0, 0.0, 0.0));
             {
-                scad!(Translate(vec3(-cube_width / 2.0, 0.0, 0.0)); scad!(Cube(vec3(cube_width, cube_len, 1.0))))
-            })
+                scad!(Cylinder(height, Diameter(screw_diameter)))
+            }),
+        );
+        result.add_child(
+            scad!(Translate(vec3(0.0, i * big_diameter / 2.0, 0.0));
+            {
+                scad!(Cylinder(height, Diameter(screw_diameter)))
+            }),
         );
     }
 
-    result
-}
-
-fn nut(width: f32, height: f32) -> ScadObject
-{
-    scad!(Scale(vec3(width, width, height));
-    {
-        base_nut()
-    })
+    return result;
 }

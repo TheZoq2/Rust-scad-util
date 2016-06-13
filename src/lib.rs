@@ -1,3 +1,4 @@
+#[macro_use]
 extern crate scad_generator;
 use scad_generator::*;
 
