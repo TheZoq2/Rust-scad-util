@@ -2,7 +2,7 @@
 extern crate scad_generator;
 use scad_generator::*;
 
-mod rc;
+pub mod rc;
 
 //Unit size nut
 fn base_nut() -> ScadObject
