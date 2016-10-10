@@ -4,6 +4,7 @@ use scad_generator::*;
 
 pub mod radio_control;
 pub mod threads;
+pub mod electronics;
 
 //Unit size nut
 fn base_nut() -> ScadObject
