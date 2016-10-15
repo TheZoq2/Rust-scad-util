@@ -65,7 +65,7 @@ impl PolouMicroUsbBreakout
 
             hole_diameter: 2.,
             hole_separation: 12.,
-            hole_distance_from_back: 2.,
+            hole_distance_from_back: 3.,
         }
     }
 
