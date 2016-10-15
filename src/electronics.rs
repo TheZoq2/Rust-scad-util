@@ -42,13 +42,13 @@ pub fn teensy_lc() -> ScadObject
 
 pub struct PolouMicroUsbBreakout
 {
-    width: f32,
-    length: f32,
-    height: f32,
+    pub width: f32,
+    pub length: f32,
+    pub height: f32,
 
-    hole_diameter: f32,
-    hole_separation: f32,
-    hole_distance_from_back: f32,
+    pub hole_diameter: f32,
+    pub hole_separation: f32,
+    pub hole_distance_from_back: f32,
 }
 
 impl PolouMicroUsbBreakout
