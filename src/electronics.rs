@@ -1,18 +1,18 @@
 use scad_generator::*;
 
-pub fn micro_usb_port() -> ScadObject
+pub fn micro_usb_port(extra_length: f32) -> ScadObject
 {
     let width = 8.5;
     let height = 4.;
-    let length = 6.;
+    let length = 6. + extra_length;
 
     let cube = scad!(Cube(vec3(width, length, height)));
     
-    scad!(Translate(vec3(-width / 2., 0., 0.)); cube)
+    scad!(Translate(vec3(-width / 2., -extra_length, 0.)); cube)
 }
 
 
-pub fn teensy_lc() -> ScadObject
+pub fn teensy_lc(usb_extra_length: f32) -> ScadObject
 {
     let width = 18.0;
     let length = 36.0;
@@ -29,7 +29,10 @@ pub fn teensy_lc() -> ScadObject
         scad!(Translate(vec3(-width / 2., 0., 0.)); cube)
     };
 
-    let usb_port = scad!(Translate(vec3(0., -usb_offset, height - usb_bottom_offset)); micro_usb_port());
+    let usb_port = scad!(Translate(vec3(0., -usb_offset, height - usb_bottom_offset));
+    {
+        micro_usb_port(usb_extra_length)
+    });
 
     scad!(Union;
     {
@@ -66,8 +69,7 @@ impl PolouMicroUsbBreakout
         }
     }
 
-    //Remember USB port offset
-    pub fn board(&self) -> ScadObject
+    pub fn board(&self, usb_extra_length: f32) -> ScadObject
     {
         let usb_offset = 1.5;
         let usb_bottom_offset = 0.5;
@@ -88,7 +90,10 @@ impl PolouMicroUsbBreakout
             })
         };
 
-        let usb_port = scad!(Translate(vec3(0., -usb_offset, self.height - usb_bottom_offset)); micro_usb_port());
+        let usb_port = scad!(Translate(vec3(0., -usb_offset, self.height - usb_bottom_offset));
+        {
+            micro_usb_port(usb_extra_length)
+        });
 
         scad!(Union;
         {
@@ -133,6 +138,17 @@ mod tests
     use super::*;
     use scad_generator::*;
 
+    #[test]
+    fn teensy_test()
+    {
+        {
+            let mut sfile = ScadFile::new();
+
+            sfile.set_detail(10);
+            sfile.add_object(teensy_lc(5.));
+            sfile.write_to_file(String::from("teensy.scad"));
+        };
+    }
 
     #[test]
     fn polou_breakout_test()
@@ -141,16 +157,8 @@ mod tests
             let mut sfile = ScadFile::new();
 
             sfile.set_detail(10);
-            sfile.add_object(PolouMicroUsbBreakout::new().board());
+            sfile.add_object(PolouMicroUsbBreakout::new().board(10.));
             sfile.write_to_file(String::from("usb_breakout.scad"));
-        };
-
-        {
-            let mut sfile = ScadFile::new();
-
-            sfile.set_detail(10);
-            sfile.add_object(PolouMicroUsbBreakout::new().wall_mount());
-            sfile.write_to_file(String::from("usb_breakout_mount.scad"));
         };
     }
 }
