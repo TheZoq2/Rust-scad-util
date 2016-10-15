@@ -72,7 +72,7 @@ impl PolouMicroUsbBreakout
         let usb_offset = 1.5;
         let usb_bottom_offset = 0.5;
 
-        let cutout_holes = self.hole_shape(self.height);
+        let cutout_holes = self.hole_shape();
 
         let pcb = 
         {
@@ -97,9 +97,9 @@ impl PolouMicroUsbBreakout
         })
     }
 
-    pub fn hole_shape(&self, height: f32) -> ScadObject
+    pub fn hole_shape(&self) -> ScadObject
     {
-        let cylinder = scad!(Cylinder(height, Diameter(self.hole_diameter)));
+        let cylinder = scad!(Cylinder(self.height, Diameter(self.hole_diameter)));
 
         let cube = scad!(Translate(vec3(0., -self.hole_diameter / 2., 0.));
         {
