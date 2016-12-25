@@ -2,9 +2,12 @@
 extern crate scad_generator;
 use scad_generator::*;
 
+extern crate nalgebra as na;
+
 pub mod radio_control;
 pub mod threads;
 pub mod electronics;
+pub mod patterns;
 
 //Unit size nut
 fn base_nut() -> ScadObject
@@ -36,9 +39,31 @@ pub fn nut(width: f32, height: f32) -> ScadObject
 }
 
 
+pub fn add_color(color: na::Vector3<f32>, object: ScadObject) -> ScadObject
+{
+    scad!(Color(color); object)
+}
+pub fn add_named_color(color: &str, object: ScadObject) -> ScadObject
+{
+    scad!(NamedColor(String::from(color)); object)
+}
+
 #[cfg(test)]
 mod tests {
     use scad_generator::*;
 
     use super::*;
+
+    #[test]
+    fn color_tests()
+    {
+        assert_eq!(
+                add_color(na::zero(),scad!(Union)).get_code(),
+                String::from("color([0,0,0])\n{\n\tunion();\n}")
+            );
+        assert_eq!(
+                add_named_color("blue", scad!(Union)).get_code(),
+                String::from("color(\"blue\")\n{\n\tunion();\n}")
+            );
+    }
 }
