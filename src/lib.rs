@@ -7,6 +7,8 @@ extern crate nalgebra as na;
 pub mod radio_control;
 pub mod threads;
 pub mod electronics;
+pub mod compositions;
+pub mod constants;
 
 //Unit size nut
 fn base_nut() -> ScadObject
