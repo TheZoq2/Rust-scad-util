@@ -9,6 +9,7 @@ pub mod threads;
 pub mod electronics;
 pub mod compositions;
 pub mod constants;
+pub mod shapes;
 
 //Unit size nut
 fn base_nut() -> ScadObject
