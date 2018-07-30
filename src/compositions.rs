@@ -11,7 +11,7 @@ pub fn object_at_corners(
 ) -> ScadObject{
     let mut result = scad!(Union;);
     for i in [-distance1 / 2., distance1 / 2.].into_iter() {
-        for j in [-distance1 / 2., distance2 / 2.].into_iter() {
+        for j in [-distance2 / 2., distance2 / 2.].into_iter() {
             result.add_child(scad!(Translate(axis1 * *i + axis2 * *j); object.clone()));
         }
     }
