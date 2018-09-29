@@ -1,6 +1,6 @@
 use scad::*;
 
-const SWITCH_SPACING: f32 = 18.15;
+pub const SWITCH_SPACING: f32 = 18.15;
 
 pub fn mx_switch_hole() -> ScadObject 
 {
