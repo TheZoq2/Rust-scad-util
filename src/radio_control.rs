@@ -1,4 +1,4 @@
-use scad_generator::*;
+use scad::*;
 
 pub fn generic_motor_holes(small_diameter: f32, big_diameter: f32, screw_diameter: f32) -> ScadObject 
 {

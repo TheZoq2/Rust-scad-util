@@ -1,6 +1,6 @@
 extern crate nalgebra as na;
 
-use scad_generator::*;
+use scad::*;
 
 use std::vec::Vec;
 
@@ -80,7 +80,7 @@ pub fn thread(height: f32, radius: f32, thread_width: f32, thread_height: f32) -
 #[cfg(test)]
 mod thread_test
 {
-    use scad_generator::*;
+    use scad::*;
     
     use super::*;
 

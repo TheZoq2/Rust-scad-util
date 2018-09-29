@@ -1,12 +1,13 @@
 #[macro_use]
-extern crate scad_generator;
-use scad_generator::*;
+extern crate scad;
+use scad::*;
 
 extern crate nalgebra as na;
 
 pub mod radio_control;
 pub mod threads;
 pub mod electronics;
+pub mod keyboard;
 
 //Unit size nut
 fn base_nut() -> ScadObject
@@ -49,7 +50,7 @@ pub fn add_named_color(color: &str, object: ScadObject) -> ScadObject
 
 #[cfg(test)]
 mod tests {
-    use scad_generator::*;
+    use scad::*;
 
     use super::*;
 

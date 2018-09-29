@@ -1,4 +1,4 @@
-use scad_generator::*;
+use scad::*;
 
 pub fn micro_usb_port(extra_length: f32) -> ScadObject
 {
@@ -136,7 +136,7 @@ impl PolouMicroUsbBreakout
 mod tests
 {
     use super::*;
-    use scad_generator::*;
+    use scad::*;
 
     #[test]
     fn teensy_test()
