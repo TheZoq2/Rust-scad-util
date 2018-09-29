@@ -1,5 +1,7 @@
 use scad::*;
 
+const SWITCH_SPACING: f32 = 18.15;
+
 pub fn mx_switch_hole() -> ScadObject 
 {
     let inner_height = 1.5;
