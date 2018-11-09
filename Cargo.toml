@@ -5,4 +5,4 @@ authors = ["TheZoq2 <frans.skarman@gmail.com>"]
 
 [dependencies]
 scad = "1.0"
-nalgebra = "0.13"
+nalgebra = "0.16"
